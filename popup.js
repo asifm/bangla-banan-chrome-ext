@@ -1,10 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  var wordToCheck
+  var reply
+
+  chrome.tabs.executeScript({
+    code: "window.getSelection().toString();"
+  }, function (selection) {
+    if (selection[0]) {
+      document.getElementById("wordToCheck").value = selection[0]
+    }
+  })
+
+
   var sendWord = document.getElementById("sendWord")
 
   sendWord.addEventListener("click", function () {
 
-    var wordToCheck = document.getElementById('wordToCheck').value
+    wordToCheck = document.getElementById('wordToCheck').value
+
     var url = `https://bangla-banan.herokuapp.com/api/${wordToCheck}`
 
     var xhr = new XMLHttpRequest();
@@ -19,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('wordToCheck').focus()
 
         reply = JSON.parse(xhr.responseText)
-        console.log(reply);
 
         if (reply.err) {
           document.getElementById('error').innerText = "কোথাও কোনো সমস্যা হয়েছে।"
@@ -46,6 +58,5 @@ document.addEventListener('DOMContentLoaded', function () {
       if (xhr.status == 404)
         document.getElementById("error").innerText = 'উঁহু। আবার লিখুন।'
     }
-
   })
 })
