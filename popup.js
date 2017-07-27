@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let wordToCheck
     let reply
 
-    chrome.tabs.executeScript({
-        code: "window.getSelection().toString();"
-    }, function (selection) {
-        if (selection[0]) {
-            document.getElementById("txtWordToCheck").value = selection[0]
-        }
-    })
+    // chrome.tabs.executeScript({
+    //     code: "window.getSelection().toString();"
+    // }, function (selection) {
+    //     if (selection[0]) {
+    //         document.getElementById("txtWordToCheck").value = selection[0]
+    //     }
+    // })
 
     document.getElementById('txtWordToCheck').focus();
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('suggestions').innerText = "";
 
                         reply = JSON.parse(xhr.responseText)
-                        console.log(reply);
+                        // console.log(reply);
 
                         if (reply.err) {
                             document.getElementById('result').innerText = "কোথাও কোনো সমস্যা হয়েছে।"
@@ -80,9 +80,5 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     }
-    //   xhr.onloadend = function () {
-    //     // If checkword button is clicked without any word in the textbox
-    //     if (xhr.status == 404)
-    //       document.getElementById("result").innerText = 'বাংলাবর্ণে লিখুন।'
-    //   }
+
 })
